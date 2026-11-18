@@ -883,6 +883,10 @@
           "sheet": "Age_Analysis",
           "cell": "M1",
           "why": "as-of date: the script writes the day it runs"
+        },
+        {
+          "mask": "As of \\d{4}-\\d\\d-\\d\\d",
+          "why": "as-of date on the Dashboard: the day the script runs"
         }
       ]
     },
@@ -1454,6 +1458,10 @@
         {
           "mask": "\\d\\d \\w{3} \\d{4} \\d\\d:\\d\\d",
           "why": "build date and time"
+        },
+        {
+          "mask": "\\b(on|MB52|MM60|built) \\d\\d (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) 20\\d\\d\\b",
+          "why": "build date and the input files' dates on the approval files and the transfer form"
         },
         {
           "mask": "\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) 20\\d\\d\\b",
