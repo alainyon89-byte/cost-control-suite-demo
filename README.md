@@ -122,6 +122,31 @@ L codes. The demo contains no real business information: no real stock, sales, c
 property, colleague or supplier names. "Demo Hotel", "Main Hotel", "Tower Wing" and "Conference Centre" are placeholders
 set in `config/app_settings.json`.
 
+## How it was built
+
+I built this with [Claude Code](https://claude.com/claude-code) as an AI pair programmer, which is why the commits
+list Claude as co-author.
+
+- **My part:** the problem and the process. I decided what each tool has to do and catch, which SAP and Micros
+  exports it reads and what its outputs must look like, and I reviewed what was built. I also made the calls on
+  scope and on what could go public.
+- **Claude Code's part:** most of the code around the tool scripts: the desktop app, the installer, the regression
+  tests, the sample data generator, the scan for sensitive data, and the preparation of this public copy.
+
+How the work was checked:
+
+- The app runs each tool script unchanged. The regression runs every sample case twice, once through the script on
+  its own and once through the app, and both must match the expected outputs cell by cell, formats and formulas
+  included.
+- This public copy was made from a written brief with ground rules: the private project was never changed, no real
+  values were copied (only column headers, so the generated data has the same layout), and nothing went to GitHub
+  without my approval.
+- A scan for sensitive terms runs before anything is published. The list of terms never leaves my PC, and every
+  match still in the code was reviewed and recorded with its reason in `tools/scan_allowlist.txt`.
+- Before calling it done, the repository was downloaded fresh from GitHub and the full regression run on that copy.
+  That run caught a date check in the tests that failed on any day after the expected files were made. The fix is
+  the second commit.
+
 ## Licence
 
 MIT. See [LICENSE](LICENSE).
