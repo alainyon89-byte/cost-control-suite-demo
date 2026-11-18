@@ -1,0 +1,33 @@
+
+Enter month label (e.g., 'June 2026'): 
+  Loading SAP file: Mi20_kitchen.xlsx
+  Columns detected: 12
+  Format: Mi20 kitchen export (12 columns — using first 12)
+  Loading Breakfast_Item_Master.xlsx
+  Master items: 30
+  Rows after breakfast filter: 30
+
+  Split % applied to 5 item(s):
+    Free Range Eggs 30s: 70% -> R491.40 (was R702.00)
+    Tomatoes 1kg: 60% -> R658.56 (was R1,097.60)
+    White Bread Loaf 700g: 50% -> R1,130.50 (was R2,261.00)
+    Full Cream Milk 1lt: 40% -> R319.02 (was R797.55)
+    Baby Spinach 1kg: 0% -> R0.00 (was R2,046.00)
+
+  Excluded 1 item(s) at 0%:
+    Baby Spinach 1kg
+
+  ─────────────────────────────────────────────
+  Total food cost (Mi20):  R   418,034.09
+  Breakfast cost:          R    40,409.98
+  Breakfast % of food:               9.7%
+  ─────────────────────────────────────────────
+
+  REMINDER: Enter Breakfast Revenue + Covers manually in the KPI block after opening.
+
+  Preserving Trend history from existing workbook...
+  Months preserved: 3
+
+  ✓ Saved: Breakfast_MonthEnd_Tool.xlsx
+  Location: <root>\tools\breakfast_tracker\Breakfast_MonthEnd_Tool.xlsx
+

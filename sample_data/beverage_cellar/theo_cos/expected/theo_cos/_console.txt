@@ -1,0 +1,4 @@
+
+  Lines sold: 72  |  in theoretical: 70  |  left out by choice: 1  |  to review/flagged: 4
+  Report: <root>\inbox\CC_Bar_Sales_Oct_2026_CoS_Summary.xlsx
+  Sheets: Summary (formulas), Detail (one row per POS line), Review (what needs a look)

@@ -1,0 +1,22 @@
+family_contains,default_unit,servings_per_stock_unit,by_keg_volume,note
+whiskey,portion,30.0,N,bare line = tot
+whisky,portion,30.0,N,bare line = tot
+cognac,portion,30.0,N,bare line = tot
+brandy,portion,30.0,N,bare line = tot
+white spirits,portion,30.0,N,bare line = tot
+liqueur,portion,30.0,N,bare line = tot
+rum,portion,30.0,N,bare line = tot
+shooters,portion,30.0,N,bare line = tot
+aperitif,portion,30.0,N,bare line = tot
+port,portion,15.0,N,50ml measure
+sherry,portion,15.0,N,50ml measure
+red wine,whole,4.0,N,"bare line = bottle, GLS = glass"
+white wine,whole,4.0,N,"bare line = bottle, GLS = glass"
+rose wine,whole,4.0,N,"bare line = bottle, GLS = glass"
+sparkling wine,whole,6.0,N,"bare line = bottle, GLS = flute"
+beer,whole,0,Y,kegs convert by volume
+cooler,whole,1,N,each
+minerals cordial,portion,30.0,N,cordial shot from the bottle
+minerals,whole,1,N,each
+alcohol coffee,portion,30.0,N,"spirit measure, no recipe held"
+cocktails,recipe,0,N,exploded via Cocktail Tracker

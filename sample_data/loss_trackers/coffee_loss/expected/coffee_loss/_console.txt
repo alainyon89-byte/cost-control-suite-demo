@@ -1,0 +1,24 @@
+
+Enter month label (e.g., 'June 2026'): 
+Enter sales quantities for each drink (enter 0 if none sold):
+------------------------------------------------------------
+  Americano:   Single Esspresso:   Double Esspresso:   Cappuccino:   Café Latte:   Decaf Americano:   Decaf Cappuccino:   Decaf Café Latte :   Café Mocha:   Cortado: 
+============================================================
+  Coffee Loss Tracker v2 — October 2026
+============================================================
+
+→ Loading recipes from costing file...
+  10 drinks loaded: Americano, Single Esspresso, Double Esspresso, Cappuccino, Café Latte, Decaf Americano, Decaf Cappuccino, Decaf Café Latte , Café Mocha, Cortado
+
+→ Loading Mi20 consumption data...
+  Loaded Mi20: MI20_Kitchen_Oct_2026.xlsx (97 rows)
+  97 ingredients loaded from Mi20
+
+→ Building output workbook...
+
+============================================================
+  Output: Coffee_Loss_Tracker_October_2026.xlsx
+  Total units sold entered: 1283
+  Net variance (loss): R1,617.86
+============================================================
+

@@ -1,0 +1,1551 @@
+{
+  "_copyright": "(c) 2026 Alain Yon",
+  "_about": "The single list of tools. To add a tool: add an entry here and a folder under Documents\\Cost Control Suite Demo\\tools\\<id>. See BUILD_NOTES.md.",
+  "groups": [
+    {
+      "id": "beverage_cellar",
+      "name": "Beverage & Cellar"
+    },
+    {
+      "id": "reporting",
+      "name": "Reporting"
+    },
+    {
+      "id": "loss_trackers",
+      "name": "Loss Trackers"
+    },
+    {
+      "id": "operating_equipment",
+      "name": "Operating Equipment"
+    }
+  ],
+  "tools": [
+    {
+      "id": "theo_cos",
+      "name": "Theoretical CoS Generator",
+      "group": "beverage_cellar",
+      "version": "v5",
+      "what": "Prices the Micros Sales Mix against MM60 and the item map to give the theoretical beverage cost of sales.",
+      "inputs_line": "Micros Sales Mix (Report sheet) + MM60 for its plant (from SAP data)",
+      "script": "Bev_Theoretical_CoS_Generator.py",
+      "needs_console": true,
+      "inputs": [
+        {
+          "key": "file",
+          "label": "Micros Sales Mix workbook",
+          "accept": [
+            ".xlsx"
+          ],
+          "multiple": false,
+          "required": true,
+          "detect": [
+            {
+              "label": "Micros Sales Mix",
+              "kind": "micros_sales_mix"
+            }
+          ]
+        },
+        {
+          "key": "mm60",
+          "label": "MM60 price list",
+          "shared": "mm60",
+          "required": false,
+          "deliver": {
+            "mode": "embedded_sheet",
+            "into": "file",
+            "sheet": "MM60"
+          },
+          "plant_from": "file:file"
+        }
+      ],
+      "options": [],
+      "args": [
+        "{in:file}"
+      ],
+      "preflight": [
+        {
+          "text": "beverage_item_map.xlsx is closed in Excel (new items get added to it)",
+          "check": "not_locked:beverage_item_map.xlsx"
+        },
+        {
+          "text": "beverage_item_map.xlsx is in the tool folder",
+          "check": "exists:beverage_item_map.xlsx"
+        },
+        {
+          "text": "Cocktail_Costing.xlsx is in the tool folder (cocktails are costed from its recipe sheets)",
+          "check": "warn_missing:Cocktail_Costing.xlsx"
+        },
+        {
+          "text": "Pour sizes and VAT are right on the map's House Rules sheet",
+          "check": "manual"
+        }
+      ],
+      "prompts": [
+        {
+          "id": "new_item",
+          "match": "Which SAP item or recipe\\?\\s*$",
+          "kind": "choice",
+          "title_regex": "^\\[\\d+/\\d+\\]\\s+(.*)$",
+          "title_prefix": "New POS item: ",
+          "options_regex": "\\[([A-Z]?\\d*)\\]\\s+(.+?)(?=\\s{2,}\\[|$)",
+          "help": "Pick the SAP item or recipe this POS item is sold from. S skips this one, Q skips the rest."
+        },
+        {
+          "id": "serving",
+          "match": "How is it sold\\?\\s*$",
+          "kind": "choice",
+          "title": "How is it sold?",
+          "options_regex": "\\[([A-Z]?\\d*)\\]\\s+(.+?)(?=\\s{2,}\\[|$)",
+          "block": "since_prompt"
+        },
+        {
+          "id": "number",
+          "match": "(Pour size in ml|Divide the cost by|Cost per bottle / unit R|Bottle / unit size in ml.*|Pack size in ml.*|Recipe cost per drink R):\\s*$",
+          "kind": "text",
+          "title_from_prompt": true,
+          "help": "Type a number above 0."
+        },
+        {
+          "id": "material",
+          "match": "SAP material number:\\s*$",
+          "kind": "text",
+          "title": "SAP material number",
+          "help": "Type the SAP material number exactly as it is in MM60."
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "*_CoS_Summary.xlsx",
+          "where": "next_to_input"
+        }
+      ],
+      "progress": [
+        {
+          "label": "New items",
+          "regex": "POS item\\(s\\) are not in the item map"
+        },
+        {
+          "label": "Report written",
+          "regex": "^\\s*Report: "
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Lines sold",
+          "regex": "Lines sold: (\\d+)"
+        },
+        {
+          "label": "In theoretical",
+          "regex": "in theoretical: (\\d+)"
+        },
+        {
+          "label": "To review / flagged",
+          "regex": "to review/flagged: (\\d+)"
+        }
+      ],
+      "review_links_from_log": [
+        "to review/flagged",
+        "Item map updated",
+        "cocktail costing workbook not found"
+      ],
+      "data_files": [
+        "beverage_item_map.xlsx",
+        "Cocktail_Costing.xlsx"
+      ],
+      "open_files": [
+        {
+          "label": "Open the item map",
+          "file": "beverage_item_map.xlsx"
+        }
+      ],
+      "help": "Open the report and check the Review sheet first. New POS items are asked about one by one and saved to the item map (a dated backup is made first).",
+      "atomic": true,
+      "ignore_in_regression": [
+        {
+          "mask": "run \\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d",
+          "why": "run date and time in Summary!A4"
+        },
+        {
+          "mask": "Added \\d{4}-\\d\\d-\\d\\d by generator",
+          "why": "date a new item was added to the map"
+        }
+      ]
+    },
+    {
+      "id": "cellar_consumption",
+      "name": "Cellar Consumption",
+      "group": "beverage_cellar",
+      "version": "v2.2",
+      "what": "Writes Micros qty sold into Charged on Doc on the cellar sheets.",
+      "inputs_line": "Cellar workbook + Micros report(s), .xlsx or .pdf",
+      "script": "update_cellar_consumption.py",
+      "needs_console": true,
+      "inputs": [
+        {
+          "key": "files",
+          "label": "Cellar workbook and Micros report(s)",
+          "accept": [
+            ".xlsx",
+            ".pdf"
+          ],
+          "multiple": true,
+          "required": true,
+          "detect": [
+            {
+              "label": "Cellar Consumption workbook",
+              "kind": "cellar_workbook"
+            },
+            {
+              "label": "Micros report",
+              "kind": "micros_report"
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "sheets",
+          "type": "text",
+          "label": "Sheet name(s)",
+          "help": "Leave blank to pick the sheet from the report's Business Date. Only type names for Bar sheets, e.g. Bar 1,Bar 2",
+          "default": ""
+        },
+        {
+          "key": "no_prompt",
+          "type": "checkbox",
+          "label": "Don't ask me about new items",
+          "help": "Strong matches only",
+          "arg": "--no-prompt"
+        }
+      ],
+      "args": [
+        "--files",
+        "{in:files}",
+        {
+          "when": "opt:sheets",
+          "args": [
+            "--sheets",
+            "{opt:sheets}"
+          ]
+        },
+        "{flags}"
+      ],
+      "preflight": [
+        {
+          "text": "cellar_item_map.xlsx is closed in Excel",
+          "check": "not_locked:cellar_item_map.xlsx"
+        }
+      ],
+      "prompts": [
+        {
+          "id": "sheet",
+          "match": "Sheet number\\(s\\) or name\\(s\\), comma-separated:\\s*$",
+          "kind": "choice",
+          "title": "Which sheet should be updated?",
+          "options_regex": "^\\s*(\\d+)\\)\\s+(.+)$",
+          "help": "Pick a sheet, or type several numbers or names separated by commas."
+        },
+        {
+          "id": "new_item",
+          "match": "Your choice:\\s*$",
+          "kind": "choice",
+          "title_regex": "New Micros item: (.*)$",
+          "title_prefix": "New Micros item: ",
+          "options_regex": "^\\s*(\\d+)\\)\\s+(.+)$",
+          "extra_options": [
+            {
+              "value": "",
+              "label": "Enter: option 1 on a clear match, otherwise skip"
+            },
+            {
+              "value": "S",
+              "label": "Skip this time"
+            },
+            {
+              "value": "I",
+              "label": "Ignore always (not a stock item)"
+            }
+          ],
+          "help": "Pick the SAP item, or type a SAP code. Your answer is saved to cellar_item_map.xlsx and not asked again."
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "*_UPDATED*.xlsx",
+          "where": "next_to_input"
+        },
+        {
+          "glob": "*_UPDATE_LOG*.txt",
+          "where": "next_to_input"
+        }
+      ],
+      "progress": [
+        {
+          "label": "Reading Micros",
+          "regex": "^Reading Micros report"
+        },
+        {
+          "label": "Writing sheet",
+          "regex": "^=== Sheet"
+        },
+        {
+          "label": "Saved",
+          "regex": "^Saved: "
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Micros beverage sales",
+          "regex": "Micros beverage sales (R[\\d,\\.]+)"
+        },
+        {
+          "label": "Written to sheet",
+          "regex": "written to sheet (R[\\d,\\.]+)"
+        },
+        {
+          "label": "Difference",
+          "regex": "difference (R[\\d,\\.-]+\\s+\\[[^\\]]+\\])"
+        }
+      ],
+      "review_links_from_log": [
+        "CHECK --",
+        "CoS outside",
+        "R0 price",
+        "used but not sold",
+        "sold but not counted",
+        "Not written"
+      ],
+      "data_files": [
+        "cellar_item_map.xlsx"
+      ],
+      "open_files": [
+        {
+          "label": "Open the item map",
+          "file": "cellar_item_map.xlsx"
+        }
+      ],
+      "help": "The original workbook is never changed. The result is saved as <workbook>_UPDATED.xlsx with a log next to it.",
+      "atomic": true,
+      "ignore_in_regression": []
+    },
+    {
+      "id": "recount_selection",
+      "name": "Recount Selection Builder",
+      "group": "beverage_cellar",
+      "version": "v3",
+      "what": "Picks the stock lines that sales and cocktails cannot explain, for recounting.",
+      "inputs_line": "L123 variance report + Micros Sales Mix + Cocktail Tracker",
+      "script": "select_recount_items.py",
+      "flow": "recount_selection",
+      "inputs": [
+        {
+          "key": "files",
+          "label": "Variance report, Sales Mix and Cocktail Tracker (any order)",
+          "accept": [
+            ".xlsx"
+          ],
+          "multiple": true,
+          "required": true,
+          "detect": [
+            {
+              "label": "L123 variance report",
+              "kind": "variance_report"
+            },
+            {
+              "label": "Micros Sales Mix",
+              "kind": "micros_sales_mix"
+            },
+            {
+              "label": "Cocktail Tracker",
+              "kind": "cocktail_tracker"
+            },
+            {
+              "label": "Completed Sales Item Review",
+              "kind": "sales_item_review"
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "mode",
+          "type": "choice",
+          "label": "What do you want to do?",
+          "default": "build",
+          "choices": [
+            {
+              "value": "build",
+              "label": "Build the recount selection"
+            },
+            {
+              "value": "review",
+              "label": "Export a Sales Item Review sheet (match Micros items to SAP materials)"
+            }
+          ]
+        }
+      ],
+      "args": [
+        "{in:files}"
+      ],
+      "preflight": [
+        {
+          "text": "Stock count captured and the L123 variance report exported to .xlsx",
+          "check": "manual"
+        },
+        {
+          "text": "Micros Sales Mix exported for the same period",
+          "check": "manual"
+        },
+        {
+          "text": "item_aliases.csv is closed in Excel",
+          "check": "not_locked:item_aliases.csv"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed",
+        "2": "approval_gate"
+      },
+      "outputs": [
+        {
+          "glob": "Recount_Selection_*.xlsx",
+          "where": "next_to_input"
+        },
+        {
+          "glob": "Sales_Item_Review_*.xlsx",
+          "where": "next_to_input"
+        }
+      ],
+      "progress": [
+        {
+          "label": "Preview",
+          "regex": "PROPOSED RECOUNT"
+        },
+        {
+          "label": "Approval",
+          "regex": "APPROVAL REQUIRED"
+        },
+        {
+          "label": "Sheet written",
+          "regex": "Recount selection sheet written|Written to:"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Lines with variance",
+          "regex": "Lines w/ variance\\s*:\\s*(\\d+)"
+        },
+        {
+          "label": "Explained by sales",
+          "regex": "Explained by sales:\\s*(\\d+)"
+        },
+        {
+          "label": "Unexplained",
+          "regex": "Unexplained\\s*:\\s*(\\d+\\s+R [\\d,\\.]+)"
+        },
+        {
+          "label": "Approved by",
+          "regex": "Approved by: (.+)$"
+        }
+      ],
+      "review_links_from_log": [
+        "APPROVAL REQUIRED",
+        "NOTE:",
+        "Sold, no variance",
+        "need a decision"
+      ],
+      "data_files": [
+        "recount_config.csv",
+        "item_overrides.csv",
+        "item_aliases.csv"
+      ],
+      "open_files": [
+        {
+          "label": "Open item aliases",
+          "file": "item_aliases.csv"
+        },
+        {
+          "label": "Open conversions (recount_config.csv)",
+          "file": "recount_config.csv"
+        }
+      ],
+      "help": "Drop the three files together; order does not matter. A filled-in Sales Item Review sheet can be dropped with them and is picked up by its contents. More than 20 unexplained lines needs an approver's name before anything is written.",
+      "atomic": true,
+      "ignore_in_regression": [
+        {
+          "mask": "\\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d",
+          "why": "generated date and time"
+        }
+      ]
+    },
+    {
+      "id": "top_bottom_sellers",
+      "name": "Top & Bottom Sellers",
+      "group": "reporting",
+      "version": "v2",
+      "what": "Year workbook with Top 20 / Bottom 20 food and beverage sellers per month and a dashboard.",
+      "inputs_line": "None. Monthly use is a manual paste into the year workbook",
+      "script": "generate_year_workbook.py",
+      "flow": "top_bottom_sellers",
+      "page": "top_bottom_sellers",
+      "inputs": [],
+      "options": [
+        {
+          "key": "year",
+          "type": "text",
+          "label": "Year for the new workbook",
+          "default": "{this_year}",
+          "required": true,
+          "pattern": "^20\\d\\d$"
+        }
+      ],
+      "args": [],
+      "run_label": "Build a new year workbook",
+      "preflight": [
+        {
+          "text": "seed_items.json is in the tool folder (the Dashboard's item list)",
+          "check": "warn_missing:seed_items.json"
+        },
+        {
+          "text": "No Top_Bottom_Sellers workbook is open in Excel",
+          "check": "not_locked:Top_Bottom_Sellers_Year.xlsx"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "summary_from_log": [
+        {
+          "label": "Sheets built",
+          "regex": "Full year workbook built: (\\d+) sheets"
+        }
+      ],
+      "review_links_from_log": [
+        "already exists"
+      ],
+      "data_files": [
+        "seed_items.json"
+      ],
+      "open_files": [
+        {
+          "label": "Open this year's workbook",
+          "file": "Top_Bottom_Sellers_{this_year}.xlsx"
+        }
+      ],
+      "help": "Each month: copy columns A to J only from the Micros export and paste at A7 on that month's Input tab. A year workbook that already exists is never overwritten.",
+      "atomic": true,
+      "ignore_in_regression": []
+    },
+    {
+      "id": "food_sales_mix",
+      "name": "Food Sales Mix",
+      "group": "reporting",
+      "version": "",
+      "what": "Writes the month's Micros food quantities into the Food Sales Mix workbook for the Main Hotel or the Tower Wing.",
+      "inputs_line": "Micros food export",
+      "variant_option": "outlet",
+      "variant_label": "Outlet",
+      "variants": {
+        "main": {
+          "label": "Main Hotel",
+          "script": "update_sales_mix.py",
+          "args": [
+            "Food_Sales_Mix_Main.xlsx",
+            "{in:file}"
+          ],
+          "preflight": [
+            {
+              "text": "Food_Sales_Mix_Main.xlsx is closed in Excel",
+              "check": "not_locked:Food_Sales_Mix_Main.xlsx"
+            },
+            {
+              "text": "Food_Sales_Mix_Main.xlsx is in the tool folder",
+              "check": "exists:Food_Sales_Mix_Main.xlsx"
+            }
+          ],
+          "data_files": [
+            "Food_Sales_Mix_Main.xlsx",
+            "item_aliases.json",
+            "item_exclusions.json",
+            "item_additions.json"
+          ],
+          "open_files": [
+            {
+              "label": "Open the Main Hotel sales mix workbook",
+              "file": "Food_Sales_Mix_Main.xlsx"
+            }
+          ]
+        },
+        "tower": {
+          "label": "Tower Wing",
+          "script": "update_sales_mix_tower.py",
+          "args": [
+            "Food_Sales_Mix_Tower.xlsx",
+            "{in:file}"
+          ],
+          "preflight": [
+            {
+              "text": "Food_Sales_Mix_Tower.xlsx is closed in Excel",
+              "check": "not_locked:Food_Sales_Mix_Tower.xlsx"
+            },
+            {
+              "text": "Food_Sales_Mix_Tower.xlsx is in the tool folder",
+              "check": "exists:Food_Sales_Mix_Tower.xlsx"
+            }
+          ],
+          "data_files": [
+            "Food_Sales_Mix_Tower.xlsx",
+            "item_aliases_tower.json",
+            "item_exclusions_tower.json",
+            "item_additions_tower.json"
+          ],
+          "open_files": [
+            {
+              "label": "Open the Tower Wing sales mix workbook",
+              "file": "Food_Sales_Mix_Tower.xlsx"
+            }
+          ]
+        }
+      },
+      "inputs": [
+        {
+          "key": "file",
+          "label": "Micros food export",
+          "accept": [
+            ".xlsx"
+          ],
+          "multiple": false,
+          "required": true,
+          "detect": [
+            {
+              "label": "Micros Sales Mix",
+              "kind": "micros_sales_mix"
+            }
+          ]
+        }
+      ],
+      "options": [],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "Food_Sales_Mix_*.xlsx",
+          "where": "tool_folder"
+        },
+        {
+          "glob": "update_report_*.txt",
+          "where": "tool_folder"
+        }
+      ],
+      "progress": [
+        {
+          "label": "Period found",
+          "regex": "^Detected period"
+        },
+        {
+          "label": "Report saved",
+          "regex": "^Full report saved"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Period",
+          "regex": "Detected period: (.+)$"
+        },
+        {
+          "label": "Exact matches written",
+          "regex": "Exact matches written[^:]*: (\\d+)"
+        },
+        {
+          "label": "Auto-matched",
+          "regex": "Auto-matched[^:]*: (\\d+)"
+        },
+        {
+          "label": "Flagged for review",
+          "regex": "Flagged for manual review[^:]*: (\\d+)"
+        }
+      ],
+      "review_links_from_log": [
+        "AUTO-MATCHED",
+        "FLAGGED",
+        "NEW ITEM ROWS ADDED",
+        "WARNING",
+        "ERROR"
+      ],
+      "help": "The month and year are read from the Micros export. A backup of the workbook is saved in the tool's backups folder before every run, and a report is saved as update_report_*.txt.",
+      "atomic": false,
+      "ignore_in_regression": []
+    },
+    {
+      "id": "cost_comparator",
+      "name": "MM60 Cost Comparator",
+      "group": "reporting",
+      "version": "v1.0",
+      "what": "Compares unit prices between an older MM60 and a newer one, by category and by item.",
+      "inputs_line": "Previous MM60 + current MM60 (from SAP data)",
+      "script": "mm60_comparator.py",
+      "inputs": [
+        {
+          "key": "old",
+          "label": "Older MM60",
+          "shared": "mm60_previous",
+          "required": true,
+          "deliver": {
+            "mode": "pass_as_file"
+          },
+          "plant_from": "opt:plant"
+        },
+        {
+          "key": "new",
+          "label": "Newer MM60",
+          "shared": "mm60",
+          "required": true,
+          "deliver": {
+            "mode": "pass_as_file"
+          },
+          "plant_from": "opt:plant"
+        }
+      ],
+      "options": [
+        {
+          "key": "plant",
+          "type": "choice",
+          "label": "Which MM60?",
+          "default": "D100",
+          "choices": [
+            {
+              "value": "D100",
+              "label": "Hotel (D100)"
+            },
+            {
+              "value": "D200",
+              "label": "Conference Centre (D200)"
+            }
+          ]
+        },
+        {
+          "key": "label_old",
+          "type": "text",
+          "label": "Label for the older file",
+          "help": "e.g. September 2026",
+          "required": true,
+          "default": ""
+        },
+        {
+          "key": "label_new",
+          "type": "text",
+          "label": "Label for the newer file",
+          "help": "e.g. October 2026",
+          "required": true,
+          "default": ""
+        }
+      ],
+      "args": [],
+      "auto_answers": [
+        {
+          "match": "Enter FIRST MM60 file",
+          "answer": "{in:old}"
+        },
+        {
+          "match": "Enter SECOND MM60 file",
+          "answer": "{in:new}"
+        },
+        {
+          "match": "Enter label for first file",
+          "answer": "{opt:label_old}"
+        },
+        {
+          "match": "Enter label for second file",
+          "answer": "{opt:label_new}"
+        },
+        {
+          "match": "Press Enter to close",
+          "answer": ""
+        }
+      ],
+      "preflight": [],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "MM60_Comparative_*.xlsx",
+          "where": "tool_folder"
+        }
+      ],
+      "progress": [
+        {
+          "label": "Loading",
+          "regex": "^\\s*Loading "
+        },
+        {
+          "label": "Building",
+          "regex": "Building summary"
+        },
+        {
+          "label": "Saved",
+          "regex": "Output saved"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Item rows written",
+          "regex": "Summary complete . ([\\d,]+) item rows"
+        },
+        {
+          "label": "Category links",
+          "regex": "(\\d+) hyperlinks added"
+        }
+      ],
+      "review_links_from_log": [
+        "ERROR"
+      ],
+      "data_files": [],
+      "help": "The older file comes from the SAP data history and the newer one is the current MM60 for the plant you pick. Use the link on a file to pick a different one for this run.",
+      "atomic": true,
+      "ignore_in_regression": [
+        {
+          "mask": "Generated: \\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d",
+          "why": "generated date and time on the Attribution sheet"
+        }
+      ]
+    },
+    {
+      "id": "stock_age",
+      "name": "Stock Age Dashboard",
+      "group": "reporting",
+      "version": "",
+      "what": "Builds the stock age analysis dashboard from stock on hand and purchase history.",
+      "inputs_line": "SAP source workbook (Stock on hand + purchases)",
+      "script": "build_age_analysis.py",
+      "inputs": [
+        {
+          "key": "file",
+          "label": "Source workbook (Stock on hand / Past year purchase / Past 5 year purchase)",
+          "accept": [
+            ".xlsx"
+          ],
+          "multiple": false,
+          "required": true,
+          "detect": [
+            {
+              "label": "Stock age source workbook",
+              "kind": "stock_age_source"
+            }
+          ]
+        }
+      ],
+      "options": [],
+      "args": [
+        "{in:file}",
+        "Age_Analysis_Dashboard.xlsx"
+      ],
+      "preflight": [
+        {
+          "text": "Age_Analysis_Dashboard.xlsx is closed in Excel",
+          "check": "not_locked:Age_Analysis_Dashboard.xlsx"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "Age_Analysis_Dashboard.xlsx",
+          "where": "tool_folder"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Rows processed",
+          "regex": "Rows processed: (.+)$"
+        }
+      ],
+      "review_links_from_log": [],
+      "data_files": [],
+      "help": "Excel recalculates the formulas when you open the dashboard. If values look blank, press Ctrl+Alt+F9 in Excel.",
+      "atomic": true,
+      "ignore_in_regression": [
+        {
+          "sheet": "Age_Analysis",
+          "cell": "M1",
+          "why": "as-of date: the script writes the day it runs"
+        }
+      ]
+    },
+    {
+      "id": "coffee_loss",
+      "name": "Coffee Shop Loss Tracker",
+      "group": "loss_trackers",
+      "version": "v2",
+      "what": "Compares what was sold (Micros) against what was used (kitchen MI20) to value coffee losses by ingredient.",
+      "inputs_line": "Kitchen MI20 (from SAP data) + drink sales quantities",
+      "script": "coffee_loss_tracker_v2.py",
+      "inputs": [
+        {
+          "key": "mi20",
+          "label": "Kitchen MI20",
+          "shared": "mi20_kitchen",
+          "required": true,
+          "deliver": {
+            "mode": "copy_to_tool_folder",
+            "to_dir": "Mi20_files",
+            "keep_name": true,
+            "clear": [
+              "Mi20_files/*.xlsx",
+              "Mi20_files/*.xls"
+            ]
+          }
+        }
+      ],
+      "options": [
+        {
+          "key": "month",
+          "type": "text",
+          "label": "Month label",
+          "help": "e.g. June 2026",
+          "required": true,
+          "default": ""
+        },
+        {
+          "key": "qty_0",
+          "type": "number",
+          "label": "Americano",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_1",
+          "type": "number",
+          "label": "Single Esspresso",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_2",
+          "type": "number",
+          "label": "Double Esspresso",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_3",
+          "type": "number",
+          "label": "Cappuccino",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_4",
+          "type": "number",
+          "label": "Café Latte",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_5",
+          "type": "number",
+          "label": "Decaf Americano",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_6",
+          "type": "number",
+          "label": "Decaf Cappuccino",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_7",
+          "type": "number",
+          "label": "Decaf Café Latte",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_8",
+          "type": "number",
+          "label": "Café Mocha",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        },
+        {
+          "key": "qty_9",
+          "type": "number",
+          "label": "Cortado",
+          "group": "Sales quantity per drink (from Micros)",
+          "default": "0"
+        }
+      ],
+      "args": [],
+      "auto_answers": [
+        {
+          "match": "Enter month label",
+          "answer": "{opt:month}"
+        },
+        {
+          "match": "^\\s*Americano:\\s*$",
+          "answer": "{opt:qty_0}"
+        },
+        {
+          "match": "^\\s*Single Esspresso:\\s*$",
+          "answer": "{opt:qty_1}"
+        },
+        {
+          "match": "^\\s*Double Esspresso:\\s*$",
+          "answer": "{opt:qty_2}"
+        },
+        {
+          "match": "^\\s*Cappuccino:\\s*$",
+          "answer": "{opt:qty_3}"
+        },
+        {
+          "match": "^\\s*Café Latte:\\s*$",
+          "answer": "{opt:qty_4}"
+        },
+        {
+          "match": "^\\s*Decaf Americano:\\s*$",
+          "answer": "{opt:qty_5}"
+        },
+        {
+          "match": "^\\s*Decaf Cappuccino:\\s*$",
+          "answer": "{opt:qty_6}"
+        },
+        {
+          "match": "^\\s*Decaf Café Latte\\s*:\\s*$",
+          "answer": "{opt:qty_7}"
+        },
+        {
+          "match": "^\\s*Café Mocha:\\s*$",
+          "answer": "{opt:qty_8}"
+        },
+        {
+          "match": "^\\s*Cortado:\\s*$",
+          "answer": "{opt:qty_9}"
+        }
+      ],
+      "preflight": [
+        {
+          "text": "Coffee_Costing_Updated.xlsx is in the tool folder (recipes and costs are read from it)",
+          "check": "exists:Coffee_Costing_Updated.xlsx"
+        },
+        {
+          "text": "The drink sales quantities above are this month's Micros counts",
+          "check": "manual"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "Coffee_Loss_Tracker_*.xlsx",
+          "where": "tool_folder"
+        }
+      ],
+      "progress": [
+        {
+          "label": "Recipes",
+          "regex": "Loading recipes"
+        },
+        {
+          "label": "MI20",
+          "regex": "Loading Mi20"
+        },
+        {
+          "label": "Workbook",
+          "regex": "Building output workbook"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Total units sold entered",
+          "regex": "Total units sold entered: (\\d+)"
+        },
+        {
+          "label": "Net variance (loss)",
+          "regex": "Net variance \\(loss\\): (R[-\\d,\\.]+)"
+        }
+      ],
+      "review_links_from_log": [
+        "WARNING",
+        "NOTE"
+      ],
+      "data_files": [
+        "Coffee_Costing_Updated.xlsx"
+      ],
+      "open_files": [
+        {
+          "label": "Open the coffee costing workbook",
+          "file": "Coffee_Costing_Updated.xlsx"
+        }
+      ],
+      "help": "Review the Ingredient Loss Analysis tab to see which items show consistent losses.",
+      "atomic": true,
+      "ignore_in_regression": [
+        {
+          "mask": "Generated: \\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d",
+          "why": "generated date and time on the Attribution sheet"
+        },
+        {
+          "sheet": "Legend & Notes",
+          "cell": "B25",
+          "why": "generated date and time"
+        }
+      ]
+    },
+    {
+      "id": "breakfast_tracker",
+      "name": "Breakfast Tracker",
+      "group": "loss_trackers",
+      "version": "v2.0",
+      "what": "Rebuilds the breakfast month-end workbook from the kitchen MI20, keeping the trend history.",
+      "inputs_line": "Kitchen MI20 (from SAP data)",
+      "script": "breakfast_rebuild.py",
+      "inputs": [
+        {
+          "key": "mi20",
+          "label": "Kitchen MI20",
+          "shared": "mi20_kitchen",
+          "required": true,
+          "deliver": {
+            "mode": "copy_to_tool_folder",
+            "to": "Mi20_kitchen.xlsx"
+          }
+        }
+      ],
+      "options": [
+        {
+          "key": "month",
+          "type": "text",
+          "label": "Month label",
+          "help": "e.g. June 2026",
+          "required": true,
+          "default": ""
+        }
+      ],
+      "args": [],
+      "auto_answers": [
+        {
+          "match": "Enter month label",
+          "answer": "{opt:month}"
+        }
+      ],
+      "preflight": [
+        {
+          "text": "Breakfast_MonthEnd_Tool.xlsx is closed in Excel",
+          "check": "not_locked:Breakfast_MonthEnd_Tool.xlsx"
+        },
+        {
+          "text": "Breakfast_Item_Master.xlsx is in the tool folder and closed",
+          "check": "exists:Breakfast_Item_Master.xlsx"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "Breakfast_MonthEnd_Tool.xlsx",
+          "where": "tool_folder"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Total food cost (MI20)",
+          "regex": "Total food cost \\(Mi20\\):\\s*(R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "Breakfast cost",
+          "regex": "Breakfast cost:\\s*(R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "Breakfast % of food",
+          "regex": "Breakfast % of food:\\s*([\\d\\.]+%)"
+        }
+      ],
+      "review_links_from_log": [
+        "Split % applied",
+        "Excluded",
+        "REMINDER"
+      ],
+      "data_files": [
+        "Breakfast_Item_Master.xlsx",
+        "Breakfast_MonthEnd_Tool.xlsx"
+      ],
+      "open_files": [
+        {
+          "label": "Open the breakfast workbook",
+          "file": "Breakfast_MonthEnd_Tool.xlsx"
+        },
+        {
+          "label": "Open the breakfast item master",
+          "file": "Breakfast_Item_Master.xlsx"
+        }
+      ],
+      "help": "After the run: open Breakfast_MonthEnd_Tool.xlsx, go to the SUMMARY tab and enter Breakfast Revenue and Breakfast Covers in the KPI SUMMARY block, then save.",
+      "atomic": false,
+      "ignore_in_regression": [
+        {
+          "mask": "Generated: \\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d",
+          "why": "generated date and time on the Attribution sheet"
+        }
+      ]
+    },
+    {
+      "id": "canteen_loss",
+      "name": "Canteen Loss Tracker",
+      "group": "loss_trackers",
+      "version": "v2.0",
+      "what": "Rebuilds the staff canteen month-end workbook from the kitchen MI20, with budget variance.",
+      "inputs_line": "Kitchen MI20 (from SAP data)",
+      "script": "canteen_rebuild.py",
+      "inputs": [
+        {
+          "key": "mi20",
+          "label": "Kitchen MI20",
+          "shared": "mi20_kitchen",
+          "required": true,
+          "deliver": {
+            "mode": "copy_to_tool_folder",
+            "to": "MI20_kitchen.xlsx"
+          }
+        }
+      ],
+      "options": [
+        {
+          "key": "month",
+          "type": "text",
+          "label": "Month label",
+          "help": "e.g. June 2026",
+          "required": true,
+          "default": ""
+        }
+      ],
+      "args": [],
+      "auto_answers": [
+        {
+          "match": "Enter month label",
+          "answer": "{opt:month}"
+        }
+      ],
+      "preflight": [
+        {
+          "text": "Canteen_MonthEnd_Tool.xlsx is closed in Excel",
+          "check": "not_locked:Canteen_MonthEnd_Tool.xlsx"
+        },
+        {
+          "text": "The budget allocation in canteen_rebuild.py (BUDGET_ALLOC) is this month's staff canteen figure",
+          "check": "manual"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "Canteen_MonthEnd_Tool.xlsx",
+          "where": "tool_folder"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Grand total",
+          "regex": "Grand total:\\s*(R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "Budget",
+          "regex": "Budget:\\s*(R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "Variance (Under)/Over",
+          "regex": "Variance \\(Under\\)/Over:\\s*(R\\s*[-\\d,\\.]+.*)$"
+        }
+      ],
+      "review_links_from_log": [
+        "OVER BUDGET",
+        "Split % applied",
+        "Excluded",
+        "REMINDER",
+        "NOTE"
+      ],
+      "data_files": [
+        "Canteen_Item_Master.xlsx",
+        "Canteen_MonthEnd_Tool.xlsx"
+      ],
+      "open_files": [
+        {
+          "label": "Open the canteen workbook",
+          "file": "Canteen_MonthEnd_Tool.xlsx"
+        },
+        {
+          "label": "Open the canteen item master",
+          "file": "Canteen_Item_Master.xlsx"
+        }
+      ],
+      "help": "After the run: open Canteen_MonthEnd_Tool.xlsx, go to the CONSOLIDATED tab and enter the Lunch/Dinner and Breakfast covers in the KPI SUMMARY block, then save. The budget allocation stays in the script, as agreed.",
+      "atomic": false,
+      "ignore_in_regression": [
+        {
+          "mask": "Generated: \\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d",
+          "why": "generated date and time on the Attribution sheet"
+        }
+      ]
+    },
+    {
+      "id": "oe_monthly",
+      "name": "OE Monthly Run",
+      "group": "operating_equipment",
+      "version": "v3.3",
+      "what": "Builds the OE tracking workbook, the approval files and the transfer form from this month's SAP exports.",
+      "inputs_line": "MB52 + MM60 D100 (from SAP data), MB51 optional",
+      "script": "oe_tracker.py",
+      "inputs": [
+        {
+          "key": "files",
+          "label": "MB52 stock on hand, and MB51 scrapping if you have it (any file names)",
+          "accept": [
+            ".xlsx"
+          ],
+          "multiple": true,
+          "required": true,
+          "detect": [
+            {
+              "label": "MB52 stock on hand",
+              "kind": "mb52"
+            },
+            {
+              "label": "MB51 scrapping",
+              "kind": "mb51"
+            },
+            {
+              "label": "MM60 price list",
+              "kind": "mm60"
+            }
+          ]
+        },
+        {
+          "key": "mm60",
+          "label": "MM60 price list",
+          "shared": "mm60",
+          "required": true,
+          "deliver": {
+            "mode": "pass_as_file"
+          }
+        }
+      ],
+      "options": [],
+      "args": [
+        "{in:files}",
+        "{in:mm60}"
+      ],
+      "preflight": [
+        {
+          "text": "OE_Tracking_Workbook.xlsx is closed in Excel",
+          "check": "not_locked:OE_Tracking_Workbook.xlsx"
+        },
+        {
+          "text": "No old SAP exports (MB52, MM60, MB51) are sitting in the OE tool folder",
+          "check": "no_sap_exports_in_folder"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "OE_Tracking_Workbook.xlsx",
+          "where": "tool_folder"
+        },
+        {
+          "glob": "OE_Approval_*.xlsx",
+          "where": "tool_folder"
+        },
+        {
+          "glob": "OE_Transfer_Form*.xlsx",
+          "where": "tool_folder"
+        }
+      ],
+      "progress": [
+        {
+          "label": "Reading SAP",
+          "regex": "^\\[1\\]"
+        },
+        {
+          "label": "Par levels",
+          "regex": "^\\[2\\]"
+        },
+        {
+          "label": "Approval lists",
+          "regex": "^\\[3\\]"
+        },
+        {
+          "label": "Writing files",
+          "regex": "^\\[4\\]"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Hold value (MB52)",
+          "regex": "Hold value \\(MB52\\)\\s+(R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "Scrap value (MB51)",
+          "regex": "Scrap value \\(MB51\\)\\s+(R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "On approval files",
+          "regex": "On approval files?\\s+(R\\s*[\\d,\\.]+\\s+\\(.*\\))"
+        },
+        {
+          "label": "Data checks",
+          "regex": "Data checks\\s+(\\d+)"
+        }
+      ],
+      "important_lines": [
+        "it was left alone",
+        "is open in Excel"
+      ],
+      "review_links_from_log": [
+        "it was left alone",
+        "  ! ",
+        "ERROR",
+        "Not on any approval file",
+        "not found"
+      ],
+      "data_files": [
+        "OE_Tracking_Workbook.xlsx"
+      ],
+      "open_files": [
+        {
+          "label": "Open the OE tracking workbook",
+          "file": "OE_Tracking_Workbook.xlsx"
+        }
+      ],
+      "help": "Next: 1. Open OE_Tracking_Workbook.xlsx and read the CHECKS tab. 2. Changed any par levels? Save, close, and run this again. 3. Send each OE_Approval file to its approver. 4. When one comes back, use OE Approvals. 5. OE_Transfer_Form.xlsx was refreshed; share it with the outlets. A re-run never overwrites an approval file that already has decisions in it.",
+      "atomic": false,
+      "ignore_in_regression": [
+        {
+          "mask": "Built \\d\\d \\w{3} \\d{4} \\d\\d:\\d\\d",
+          "why": "build date and time"
+        },
+        {
+          "mask": "\\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d",
+          "why": "build date and time on the _INFO sheet"
+        },
+        {
+          "mask": "\\d\\d \\w{3} \\d{4} \\d\\d:\\d\\d",
+          "why": "build date and time"
+        },
+        {
+          "mask": "\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) 20\\d\\d\\b",
+          "why": "the period is the month of the run (no --period given, as with the .bat)"
+        }
+      ]
+    },
+    {
+      "id": "oe_approvals",
+      "name": "OE Approvals",
+      "group": "operating_equipment",
+      "version": "v3.1",
+      "folder": "oe_monthly",
+      "what": "Reads a signed approval file and builds the approved order list for procurement.",
+      "inputs_line": "A signed OE approval file",
+      "script": "oe_approvals.py",
+      "inputs": [
+        {
+          "key": "file",
+          "label": "Signed approval file",
+          "accept": [
+            ".xlsx"
+          ],
+          "multiple": false,
+          "required": false,
+          "detect": [
+            {
+              "label": "OE approval file",
+              "kind": "oe_approval"
+            }
+          ],
+          "empty_note": "No file added: the newest OE_Approval_*.xlsx in the OE folder is used."
+        }
+      ],
+      "options": [],
+      "args": [
+        "{in:file}"
+      ],
+      "preflight": [
+        {
+          "text": "The approval file is closed in Excel",
+          "check": "not_locked_input:file"
+        }
+      ],
+      "exit_codes": {
+        "0": "finished",
+        "1": "failed"
+      },
+      "outputs": [
+        {
+          "glob": "OE_Approved_Orders_*.xlsx",
+          "where": "next_to_input"
+        }
+      ],
+      "summary_from_log": [
+        {
+          "label": "Lines read",
+          "regex": "Lines read\\s+(\\d+)"
+        },
+        {
+          "label": "Approved",
+          "regex": "^\\s*Approved\\s+(\\d+\\s+R\\s*[\\d,\\.]+)"
+        },
+        {
+          "label": "Not approved",
+          "regex": "Not approved\\s+(\\d+)"
+        },
+        {
+          "label": "Pending",
+          "regex": "Pending\\s+(\\d+)"
+        }
+      ],
+      "review_links_from_log": [
+        "Follow up",
+        "no decision",
+        "ERROR"
+      ],
+      "data_files": [],
+      "open_files": [
+        {
+          "label": "Open the OE tracking workbook",
+          "file": "OE_Tracking_Workbook.xlsx"
+        }
+      ],
+      "help": "Next: open OE_Approved_Orders_[month].xlsx. The APPROVED tab is the order list for procurement; check FOLLOW UP on the SUMMARY tab.",
+      "atomic": true,
+      "ignore_in_regression": [
+        {
+          "mask": "processed \\d\\d \\w{3} \\d{4} \\d\\d:\\d\\d",
+          "why": "processed date and time in SUMMARY!A2"
+        }
+      ]
+    }
+  ]
+}

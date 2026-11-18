@@ -1,0 +1,123 @@
+
+================================================================
+  6 POS item(s) are not in the item map yet.
+  Pick an answer for each. [S] skips one, [Q] skips the rest.
+  Skipped items are left out of the theoretical and listed on the Review sheet.
+================================================================
+
+[1/6] Botanical Gin  (White Spirits)  sold 105 @ avg R48.00
+     [1] Botanical Gin 750ml  R390.00 EA  #90000004
+     [2] London Dry Gin 750ml  R205.80 EA  #90000003
+     [3] Orange Juice 5lt  R115.00 EA  #90001023
+     [4] Orange Juice 1lt  R21.00 EA  #90000048
+     [5] Tonic Water 200ml  R6.40 EA  #90000039
+     [6] Brut Cap Classique 750ml  R147.00 EA  #90000027
+     Recipes: [R1] Classic Mojito (Menu 1)   [R2] Cosmopolitan (Menu 3)   [R3] Gin and Tonic (Menu 2)   [R4] Espresso Martini (Menu 4)   [R5] Rum Punch (Menu 7)   [R6] Margarita (Menu 5)
+     [N] Type a SAP material number   [M] Not in SAP, type a cost
+     [C] Cocktail rule   [T] Table water rule   [X] Leave out   [S] Skip   [Q] Skip all
+   Which SAP item or recipe?    SAP material number:      [1] Whole bottle / unit (÷1)
+     [2] House tot (25ml, ÷30.00)
+     [3] House wine glass (187.5ml, ÷4.00)
+     [4] House bubbly glass (125ml, ÷6.00)
+     [5] House draught (500ml, ÷1.50)
+     [6] House cordial (25ml, ÷30.00)
+     [7] House juice glass (250ml, ÷3.00)
+     [8] House port glass (50ml, ÷15.00)
+     [9] House dessert glass (50ml, ÷15.00)
+     [P] Pour size in ml     [D] Custom divisor
+   How is it sold?    Saved.
+
+[2/6] Reserve Shiraz 750ml  (Red Wine)  sold 21 @ avg R420.00
+     [1] Reserve Shiraz 750ml  R140.00 EA  #90000021
+     [2] Reserve Chardonnay 750ml  R125.00 EA  #90000025
+     [3] Silver Tequila 750ml  R420.00 EA  #90000005
+     [4] Grenadine Syrup 750ml  R45.00 EA  #90000053
+     [5] Estate Chenin Blanc 750ml  R58.00 EA  #90000023
+     [6] Orange Liqueur 750ml  R310.00 EA  #90000017
+     Recipes: [R1] Espresso Martini (Menu 4)   [R2] Margarita (Menu 5)   [R3] Whisky Sour (Menu 6)   [R4] Rum Punch (Menu 7)   [R5] Cosmopolitan (Menu 3)   [R6] Classic Mojito (Menu 1)
+     [N] Type a SAP material number   [M] Not in SAP, type a cost
+     [C] Cocktail rule   [T] Table water rule   [X] Leave out   [S] Skip   [Q] Skip all
+   Which SAP item or recipe?    SAP material number:      [1] Whole bottle / unit (÷1)
+     [2] House tot (25ml, ÷30.00)
+     [3] House wine glass (187.5ml, ÷4.00)
+     [4] House bubbly glass (125ml, ÷6.00)
+     [5] House draught (500ml, ÷1.50)
+     [6] House cordial (25ml, ÷30.00)
+     [7] House juice glass (250ml, ÷3.00)
+     [8] House port glass (50ml, ÷15.00)
+     [9] House dessert glass (50ml, ÷15.00)
+     [P] Pour size in ml     [D] Custom divisor
+   How is it sold?    Saved.
+
+[3/6] Dry Rose GLS  (Rose Wine)  sold 58 @ avg R60.00
+     [1] Dry Rose 750ml  R60.00 EA  #90000026
+     [2] Dry Cider 330ml  R16.90 EA  #90000034
+     [3] London Dry Gin 750ml  R205.80 EA  #90000003
+     [4] Draught Lager Keg 30lt  R1,421.00 EA  #90000047
+     [5] Aged Brandy 10yr 750ml  R380.00 EA  #90000013
+     [6] Cranberry Juice 1lt  R26.52 EA  #90000049
+     Recipes: [R1] Whisky Sour (Menu 6)   [R2] Cosmopolitan (Menu 3)   [R3] Gin and Tonic (Menu 2)   [R4] Espresso Martini (Menu 4)   [R5] Rum Punch (Menu 7)   [R6] Margarita (Menu 5)
+     [N] Type a SAP material number   [M] Not in SAP, type a cost
+     [C] Cocktail rule   [T] Table water rule   [X] Leave out   [S] Skip   [Q] Skip all
+   Which SAP item or recipe?    SAP material number:      [1] Whole bottle / unit (÷1)
+     [2] House tot (25ml, ÷30.00)
+     [3] House wine glass (187.5ml, ÷4.00)
+     [4] House bubbly glass (125ml, ÷6.00)
+     [5] House draught (500ml, ÷1.50)
+     [6] House cordial (25ml, ÷30.00)
+     [7] House juice glass (250ml, ÷3.00)
+     [8] House port glass (50ml, ÷15.00)
+     [9] House dessert glass (50ml, ÷15.00)
+     [P] Pour size in ml     [D] Custom divisor
+   How is it sold?    Saved.
+
+[4/6] Apple Cooler 275ml  (Ciders & Coolers)  sold 140 @ avg R36.00
+     [1] Apple Cooler 275ml  R15.40 EA  #90000035
+     [2] Apple Juice 5lt  R110.00 EA  #90001024
+     [3] Lime Cordial 750ml  R39.14 EA  #90000051
+     [4] Cape Ruby Port 750ml  R85.00 EA  #90000029
+     [5] Orange Liqueur 750ml  R310.00 EA  #90000017
+     [6] Cape Brandy 750ml  R185.00 EA  #90000012
+     Recipes: [R1] Cosmopolitan (Menu 3)   [R2] Classic Mojito (Menu 1)   [R3] Whisky Sour (Menu 6)   [R4] Gin and Tonic (Menu 2)   [R5] Rum Punch (Menu 7)   [R6] Margarita (Menu 5)
+     [N] Type a SAP material number   [M] Not in SAP, type a cost
+     [C] Cocktail rule   [T] Table water rule   [X] Leave out   [S] Skip   [Q] Skip all
+   Which SAP item or recipe? 
+[5/6] Energy Drink 250ml  (Minerals Softdrink)  sold 264 @ avg R38.00
+     [1] Energy Drink 250ml  R14.60 EA  #90000042
+     [2] London Dry Gin 750ml  R205.80 EA  #90000003
+     [3] Dry Rose 750ml  R60.00 EA  #90000026
+     [4] Ginger Ale 200ml  R6.53 EA  #90000040
+     [5] Cape Ruby Port 750ml  R85.00 EA  #90000029
+     [6] Reserve Shiraz 750ml  R140.00 EA  #90000021
+     Recipes: [R1] Margarita (Menu 5)   [R2] Espresso Martini (Menu 4)   [R3] Gin and Tonic (Menu 2)   [R4] Whisky Sour (Menu 6)   [R5] Classic Mojito (Menu 1)   [R6] Rum Punch (Menu 7)
+     [N] Type a SAP material number   [M] Not in SAP, type a cost
+     [C] Cocktail rule   [T] Table water rule   [X] Leave out   [S] Skip   [Q] Skip all
+   Which SAP item or recipe?    SAP material number:      [1] Whole bottle / unit (÷1)
+     [2] House tot (25ml, ÷10.00)
+     [3] House wine glass (187.5ml, ÷1.33)
+     [4] House bubbly glass (125ml, ÷2.00)
+     [5] House draught (500ml, ÷0.50)
+     [6] House cordial (25ml, ÷10.00)
+     [7] House juice glass (250ml, ÷1.00)
+     [8] House port glass (50ml, ÷5.00)
+     [9] House dessert glass (50ml, ÷5.00)
+     [P] Pour size in ml     [D] Custom divisor
+   How is it sold?    Saved.
+
+[6/6] Margarita  (Cocktails)  sold 103 @ avg R92.00
+     [1] Cranberry Juice 1lt  R26.52 EA  #90000049
+     [2] Sparkling Brut 750ml  R73.44 EA  #90000028
+     [3] Sparkling Water 750ml  R7.90 EA  #90000046
+     [4] Sparkling Water 500ml  R5.40 EA  #90000044
+     [5] Herbal Aperitif 750ml  R280.00 EA  #90000018
+     [6] Orange Juice 5lt  R115.00 EA  #90001023
+     Recipes: [R1] Margarita (Menu 5)   [R2] Cosmopolitan (Menu 3)   [R3] Espresso Martini (Menu 4)   [R4] Classic Mojito (Menu 1)   [R5] Gin and Tonic (Menu 2)   [R6] Rum Punch (Menu 7)
+     [N] Type a SAP material number   [M] Not in SAP, type a cost
+     [C] Cocktail rule   [T] Table water rule   [X] Leave out   [S] Skip   [Q] Skip all
+   Which SAP item or recipe?    Saved.
+
+  Item map updated (5 new row(s)). Backup: beverage_item_map_backup_20261117_1600.xlsx
+
+  Lines sold: 72  |  in theoretical: 69  |  left out by choice: 1  |  to review/flagged: 5
+  Report: <root>\inbox\CC_Bar_Sales_Oct_2026_CoS_Summary.xlsx
+  Sheets: Summary (formulas), Detail (one row per POS line), Review (what needs a look)

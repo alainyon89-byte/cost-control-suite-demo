@@ -1,0 +1,45 @@
+--- Config files loaded ---
+  Script folder: <root>\tools\food_sales_mix
+  item_aliases.json:    FOUND, 1 entries
+  item_exclusions.json: FOUND, 1 entries
+  item_additions.json:  FOUND, 1 pending
+
+Detected period: October 2026
+Target column: K (sheet '2026')
+NOTE: 2 cells already have data in column K. They will be overwritten only where a match is found for that row.
+
+Sales Mix Update Report - October 2026
+Run at: 2026-11-17 16:00:28
+Backup saved to: backups\Food_Sales_Mix_Main_backup_20261117_160028.xlsx
+
+--- NEW ITEM ROWS ADDED (1) ---
+  Added row 17 'Prawn Linguine' under 'Mains' (from POS item 'Prawn Linguine')
+
+Exact matches written (incl. aliases & new items): 29
+Auto-matched (>= 90% similarity) written: 1
+Flagged for manual review (not written): 1
+Skipped, no reasonable match (out of scope): 2
+
+--- AUTO-MATCHED (please spot-check) ---
+  POS 'Chocolate Browny' -> Mix row 32 'Chocolate Brownie' (qty=33, similarity=91%)
+
+--- FLAGGED FOR YOUR REVIEW (not written to sheet) ---
+  Reply 'join' / 'not the same' / 'add' per line like last time, and I'll update item_aliases.json / item_exclusions.json / item_additions.json accordingly.
+  POS 'Side Salad' (qty=14) looks like it might be 'Caesar Salad' (similarity=64%)
+
+--- SKIPPED, no match found (2 items) ---
+  'Beef Burger Deluxe' (qty=39)
+  'Extra Chips' (qty=107)
+
+
+Full report saved to: update_report_october_2026_20261117_160028.txt
+
+[stderr]
+<root>\tools\food_sales_mix\update_sales_mix.py:227: DeprecationWarning: Call to deprecated function copy (Use copy(obj) or cell.obj = cell.obj + other).
+  dst.font = src.font.copy()
+<root>\tools\food_sales_mix\update_sales_mix.py:228: DeprecationWarning: Call to deprecated function copy (Use copy(obj) or cell.obj = cell.obj + other).
+  dst.fill = src.fill.copy()
+<root>\tools\food_sales_mix\update_sales_mix.py:229: DeprecationWarning: Call to deprecated function copy (Use copy(obj) or cell.obj = cell.obj + other).
+  dst.border = src.border.copy()
+<root>\tools\food_sales_mix\update_sales_mix.py:230: DeprecationWarning: Call to deprecated function copy (Use copy(obj) or cell.obj = cell.obj + other).
+  dst.alignment = src.alignment.copy()

@@ -1,0 +1,15 @@
+====================================================================================================
+  SALES ITEM REVIEW
+----------------------------------------------------------------------------------------------------
+  3 sales lines need a decision:
+     1 matched nothing at all
+     2 matched, but not confidently enough to trust
+  29 further matches were confident enough to leave alone.
+  Aliases already in force: 1
+
+  Written to:
+     <root>\inbox\Sales_Item_Review_20261117.xlsx
+
+  Fill the CONFIRM Material No column, then run:
+     python select_recount_items.py <the three files> --import-review "Sales_Item_Review_20261117.xlsx"
+====================================================================================================

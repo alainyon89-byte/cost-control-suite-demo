@@ -1,0 +1,36 @@
+======================================================================
+  OE TRACKER v3.3  |  monthly build  |  period Nov 2026
+======================================================================
+
+[1] Reading SAP exports
+    MB52  MB52_OE_Oct_2026.xlsx: 112 lines, 21 locations
+    MM60  MM60_D100_Oct_2026.xlsx: 215 materials
+    MB51  MB51_Oct_2026.xlsx: 24 item/location lines, posted 02 Oct - 29 Oct 2026
+
+[2] Carrying forward par levels, notes and locations
+    From OE_Tracking_Workbook.xlsx: 112 par levels (111 above 0), 2 notes, 21 location settings
+
+[3] Building approval lists
+    OE_Approval_Nov_2026.xlsx: 44 lines, R122,141.00 (17 HIGH, 17 with a transfer option) - F&B Manager
+    OE_Approval_Linen_Main_Nov_2026.xlsx: 9 lines, R167,571.00 (4 HIGH, 3 with a transfer option) - Executive Housekeeper (Main Hotel) then Rooms Division Manager
+    OE_Approval_Linen_Tower_Nov_2026.xlsx: 8 lines, R44,441.00 (3 HIGH, 2 with a transfer option) - Executive Housekeeper (Tower Wing) then Rooms Division Manager
+    Not on any approval file (On Approval = N): L080 KITCHEN CLEANING: 2 lines, R3,015.00
+    Not on any approval file (On Approval = N): L081 STATIONERY: 1 lines, R647.50
+    Not on any approval file (On Approval = N): L083 GUEST SUPPLIES: 1 lines, R803.30
+
+[4] Writing files
+    Previous workbook archived: Archive\OE_Tracking_Workbook_2026-11-17_160040.xlsx
+    OE_Tracking_Workbook.xlsx: 21 location tabs, 112 items
+    OE_Approval_Nov_2026.xlsx: send to the F&B Manager
+    OE_Approval_Linen_Main_Nov_2026.xlsx: send to Executive Housekeeper (Main Hotel), then Rooms Division Manager
+    OE_Approval_Linen_Tower_Nov_2026.xlsx: send to Executive Housekeeper (Tower Wing), then Rooms Division Manager
+    OE_Transfer_Form.xlsx: 21 outlets, 112 items listed, for operations
+
+----------------------------------------------------------------------
+  Hold value (MB52)      R    1,402,087.70
+  Scrap value (MB51)     R        9,992.00
+  On approval files      R      334,153.00  (61 lines in 3 files)
+  Data checks                            3  (see CHECKS tab)
+----------------------------------------------------------------------
+  If you change par levels, save the workbook and run this again;
+  the approval file is rebuilt from the saved par levels.

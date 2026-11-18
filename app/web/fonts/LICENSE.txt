@@ -1,0 +1,7 @@
+Fonts bundled with Cost Control Suite (app code (c) 2026 Alain Yon)
+
+Inter            Copyright (c) The Inter Project Authors (https://github.com/rsms/inter)
+JetBrains Mono   Copyright (c) The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+
+Both are licensed under the SIL Open Font License, Version 1.1 (https://openfontlicense.org).
+They are bundled, unmodified (Latin subset, woff2), so the app does not need Google Fonts.

@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+dist/
+*.exe
+*.log
+output/
+run_history/
+*.db
+.vscode/
+.idea/
+AUDIT_REPORT.md
+COPY_LOG.md
+TEST_LOG.md
+
+# local list of names the publish scan looks for (never published)
+tools/sensitive_terms.local.txt
+
+# Excel lock files
+~$*

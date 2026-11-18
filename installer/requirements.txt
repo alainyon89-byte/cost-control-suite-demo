@@ -1,0 +1,25 @@
+# (c) 2026 Alain Yon
+# Cost Control Suite - exact versions tested with private Python 3.13.17 (64-bit), 16 Nov 2026
+# Tool scripts: openpyxl, pandas (+ numpy), pdfplumber (Cellar Consumption PDF reports)
+# App window:   pywebview (+ pythonnet for Edge WebView2)
+openpyxl==3.1.5
+pandas==3.0.5
+numpy==2.5.3
+pdfplumber==0.11.10
+pywebview==6.2.1
+# pulled in by the packages above, pinned so every PC gets the same set
+bottle==0.13.4
+cffi==2.1.1
+charset-normalizer==3.5.2
+clr_loader==0.3.1
+cryptography==50.0.2
+et_xmlfile==2.0.0
+pdfminer.six==20260107
+pillow==13.0.0
+proxy_tools==0.1.0
+pycparser==3.12
+pypdfium2==5.15.2
+python-dateutil==4.0.0
+pythonnet==3.2.1
+typing_extensions==4.16.0
+tzdata==2026.6

@@ -1,0 +1,115 @@
+====================================================================================================
+  RECOUNT SELECTION - sales and cocktails vs the variance
+====================================================================================================
+  Variance report   : L123_Variance_Oct_2026.xlsx
+  Sales Mix         : Pool_Bar_Sales_Oct_2026.xlsx
+  Cocktail Tracker  : Cocktail_Tracker.xlsx
+  Outlet / Plant    : L123 / D100
+  Stock sheets      : 2000123
+----------------------------------------------------------------------------------------------------
+  Lines on report   : 55
+  Lines w/ variance : 51
+  Explained by sales: 24  (within 10% or R250)
+  Unexplained       : 27   R 19,482.56
+  Sold, no variance : 2 (review tab)
+  Cocktails matched : 8 of 9 selling
+----------------------------------------------------------------------------------------------------
+  PROPOSED RECOUNT - top 20 by unexplained value
+----------------------------------------------------------------------------------------------------
+    # Sheet      Ln   Material Description                                Var   Theor  Unexpl     Value R
+----------------------------------------------------------------------------------------------------
+    1 2000123    044  90000044 Sparkling Water 500ml                     57.0   241.0  -298.0    1,609.20
+    2 2000123    001  90000001 House Vodka 750ml                          4.4     4.4    -8.8    1,457.76
+    3 2000123    013  90000013 Aged Brandy 10yr 750ml                    -5.5     1.9     3.6    1,368.00
+    4 2000123    004  90000004 Botanical Gin 750ml                       -5.1     2.2     2.9    1,144.00
+    5 2000123    011  90000011 Spiced Rum 750ml                         -11.1     6.7     4.4    1,063.74
+    6 2000123    008  90000008 Irish Whiskey 750ml                       -4.1     1.0     3.1    1,012.00
+    7 2000123    009  90000009 Bourbon Whiskey 750ml                     -9.7     7.1     2.6      935.11
+    8 2000123    016  90000016 Cream Liqueur 750ml                       -6.0     1.9     4.1      840.50
+    9 2000123    017  90000017 Orange Liqueur 750ml                      -7.5     4.9     2.6      817.19
+   10 2000123    027  90000027 Brut Cap Classique 750ml                 -37.1    32.5     4.6      690.00
+   11 2000123    034  90000034 Dry Cider 330ml                         -245.0   206.0    39.0      659.10
+   12 2000123    021  90000021 Reserve Shiraz 750ml                     -25.6    21.0     4.6      644.00
+   13 2000123    022  90000022 Classic Pinotage 750ml                   -44.4    36.2     8.1      635.70
+   14 2000123    029  90000029 Cape Ruby Port 750ml                      -8.8     2.1     6.7      572.33
+   15 2000123    028  90000028 Sparkling Brut 750ml                     -28.8    21.5     7.3      525.60
+   16 2000123    052  90000052 Sugar Syrup 750ml                         13.0     4.3   -17.3      500.58
+   17 2000123    026  90000026 Dry Rose 750ml                           -44.7    36.5     8.2      492.00
+   18 2000123    055  90001002 Limes Loose                              -17.5     6.6    10.9      490.95
+   19 2000123    019  90000019 Estate Cabernet Sauvignon 750ml          -29.4    24.2     5.1      489.25
+   20 2000123    048  90000048 Orange Juice 1lt                         -43.0    20.6    22.4      471.45
+----------------------------------------------------------------------------------------------------
+  Selected value    : R 16,418.46 of R 19,482.56 unexplained (84.3%)
+  Not selected      : 7 lines, R 3,064.10
+====================================================================================================
+  WATCH: cocktails sold with no recipe, so their ingredient usage is missing:
+     Frozen Strawberry Daiquiri                         22 sold
+====================================================================================================
+
+  ** APPROVAL REQUIRED - NOTHING WRITTEN **
+  27 lines cannot be explained by sales, which is more than the standard limit of 20.
+
+  To proceed, re-run with:
+     --approve --approved-by "Your Name"
+     add --limit N to recount more than 20 lines
+
+====================================================================================================
+
+====================================================================================================
+  RECOUNT SELECTION - sales and cocktails vs the variance
+====================================================================================================
+  Variance report   : L123_Variance_Oct_2026.xlsx
+  Sales Mix         : Pool_Bar_Sales_Oct_2026.xlsx
+  Cocktail Tracker  : Cocktail_Tracker.xlsx
+  Outlet / Plant    : L123 / D100
+  Stock sheets      : 2000123
+----------------------------------------------------------------------------------------------------
+  Lines on report   : 55
+  Lines w/ variance : 51
+  Explained by sales: 24  (within 10% or R250)
+  Unexplained       : 27   R 19,482.56
+  Sold, no variance : 2 (review tab)
+  Cocktails matched : 8 of 9 selling
+----------------------------------------------------------------------------------------------------
+  PROPOSED RECOUNT - top 25 by unexplained value
+----------------------------------------------------------------------------------------------------
+    # Sheet      Ln   Material Description                                Var   Theor  Unexpl     Value R
+----------------------------------------------------------------------------------------------------
+    1 2000123    044  90000044 Sparkling Water 500ml                     57.0   241.0  -298.0    1,609.20
+    2 2000123    001  90000001 House Vodka 750ml                          4.4     4.4    -8.8    1,457.76
+    3 2000123    013  90000013 Aged Brandy 10yr 750ml                    -5.5     1.9     3.6    1,368.00
+    4 2000123    004  90000004 Botanical Gin 750ml                       -5.1     2.2     2.9    1,144.00
+    5 2000123    011  90000011 Spiced Rum 750ml                         -11.1     6.7     4.4    1,063.74
+    6 2000123    008  90000008 Irish Whiskey 750ml                       -4.1     1.0     3.1    1,012.00
+    7 2000123    009  90000009 Bourbon Whiskey 750ml                     -9.7     7.1     2.6      935.11
+    8 2000123    016  90000016 Cream Liqueur 750ml                       -6.0     1.9     4.1      840.50
+    9 2000123    017  90000017 Orange Liqueur 750ml                      -7.5     4.9     2.6      817.19
+   10 2000123    027  90000027 Brut Cap Classique 750ml                 -37.1    32.5     4.6      690.00
+   11 2000123    034  90000034 Dry Cider 330ml                         -245.0   206.0    39.0      659.10
+   12 2000123    021  90000021 Reserve Shiraz 750ml                     -25.6    21.0     4.6      644.00
+   13 2000123    022  90000022 Classic Pinotage 750ml                   -44.4    36.2     8.1      635.70
+   14 2000123    029  90000029 Cape Ruby Port 750ml                      -8.8     2.1     6.7      572.33
+   15 2000123    028  90000028 Sparkling Brut 750ml                     -28.8    21.5     7.3      525.60
+   16 2000123    052  90000052 Sugar Syrup 750ml                         13.0     4.3   -17.3      500.58
+   17 2000123    026  90000026 Dry Rose 750ml                           -44.7    36.5     8.2      492.00
+   18 2000123    055  90001002 Limes Loose                              -17.5     6.6    10.9      490.95
+   19 2000123    019  90000019 Estate Cabernet Sauvignon 750ml          -29.4    24.2     5.1      489.25
+   20 2000123    048  90000048 Orange Juice 1lt                         -43.0    20.6    22.4      471.45
+   21 2000123    042  90000042 Energy Drink 250ml                       -94.0    64.0    30.0      447.00
+   22 2000123    038  90000038 Lemon Soda 300ml                        -197.0   133.0    64.0      441.60
+   23 2000123    054  90001001 Fresh Mint Bunch                         -41.0     9.5    31.5      441.00
+   24 2000123    033  90000033 Light Lager 330ml                       -121.0    92.0    29.0      440.80
+   25 2000123    039  90000039 Tonic Water 200ml                       -210.0   142.0    68.0      435.20
+----------------------------------------------------------------------------------------------------
+  Selected value    : R 18,624.06 of R 19,482.56 unexplained (95.6%)
+  Not selected      : 2 lines, R 858.50
+====================================================================================================
+  WATCH: cocktails sold with no recipe, so their ingredient usage is missing:
+     Frozen Strawberry Daiquiri                         22 sold
+====================================================================================================
+
+  Recount selection sheet written:
+     <root>\inbox\Recount_Selection_L123_20261117.xlsx
+  Approved by: Bar Manager
+  Conversions read from: <root>\tools\recount_selection\recount_config.csv
+====================================================================================================

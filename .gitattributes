@@ -1,0 +1,9 @@
+# Windows batch files must keep CRLF line endings, also in GitHub's "Download ZIP"
+* text=auto
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.xlsx binary
+*.png binary
+*.ico binary
+*.woff2 binary

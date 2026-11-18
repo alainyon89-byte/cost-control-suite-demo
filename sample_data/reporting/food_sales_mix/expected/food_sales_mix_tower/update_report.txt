@@ -1,0 +1,21 @@
+Sales Mix Update Report - October 2026
+Run at: 2026-11-17 16:00:30
+Backup saved to: backups\Food_Sales_Mix_Tower_backup_20261117_160030.xlsx
+
+--- NEW ITEM ROWS ADDED (1) ---
+  Added row 10 'Gourmet Toastie' under 'Light Meals' (from POS item 'Gourmet Toastie')
+
+Exact matches written (incl. aliases & new items): 15
+Auto-matched (>= 90% similarity) written: 1
+Flagged for manual review (not written): 1
+Skipped, no reasonable match (out of scope): 1
+
+--- AUTO-MATCHED (please spot-check) ---
+  POS 'Carrot Cake Slices' -> Mix row 23 'Carrot Cake Slice' (qty=102, similarity=97%)
+
+--- FLAGGED FOR YOUR REVIEW (not written to sheet) ---
+  Reply 'join' / 'not the same' / 'add' per line like last time, and I'll update item_aliases_tower.json / item_exclusions_tower.json / item_additions_tower.json accordingly.
+  POS 'Mezze Plate for Two' (qty=41) looks like it might be 'Mezze Platter' (similarity=75%)
+
+--- SKIPPED, no match found (1 items) ---
+  'Bread Roll Extra' (qty=103)

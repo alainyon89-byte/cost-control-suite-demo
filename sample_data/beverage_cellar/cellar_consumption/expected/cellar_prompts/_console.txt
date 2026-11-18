@@ -1,0 +1,137 @@
+Cellar Consumption updater v2.2 (11 Nov 2026)
+Item map: <root>\tools\cellar_consumption\cellar_item_map.xlsx (5 entries)
+Sheet '10.11.2026' picked automatically from the report's Business Date (10 Nov 2026).
+
+Reading Micros report: CC_Function_Sales_10_Nov_2026.xlsx
+  -> 42 lines, 41 with sales (upgraded Micros format).
+
+  New Micros item: 'Tonic 200ml'  (84 sold @ R18.00, Ent - Minerals Softdrink)
+     1) 90000039 Tonic Water 200ml                               R6.40  [on this sheet]
+     Enter = 1 | number = pick | type a SAP code | S = skip this time | I = ignore always (not stock)
+  Your choice: 
+  New Micros item: 'Water Still 500ml'  (87 sold @ R18.00, Ent - Minerals Water)
+     1) 90000043 Still Water 500ml                               R5.00  [on this sheet]
+     2) 90000045 Still Water 750ml                               R7.45  [on this sheet]
+     3) 90000044 Sparkling Water 500ml                           R5.40  [on this sheet]
+     4) 90000039 Tonic Water 200ml                               R6.40  [on this sheet]
+     5) 90000041 Soda Water 200ml                                R5.80  [on this sheet]
+     Enter = skip | number = pick | type a SAP code | S = skip this time | I = ignore always (not stock)
+  Your choice: 
+  New Micros item: 'Lager Premium 330ml'  (68 sold @ R38.00, Ent - Beer)
+     1) 90000031 Premium Lager 330ml                            R18.33  [on this sheet]
+     2) 90000033 Light Lager 330ml                              R15.20  [on this sheet]
+     3) 90000030 House Lager 340ml                              R14.79  [on this sheet]
+     4) 90000002 Premium Vodka 750ml                           R320.00
+     5) 90000047 Draught Lager Keg 30lt                      R1,421.00
+     Enter = skip | number = pick | type a SAP code | S = skip this time | I = ignore always (not stock)
+  Your choice: 
+  New Micros item: 'Chenin Estate GLS'  (70 sold @ R58.00, Ent - White Wine)
+     1) 90000023 Estate Chenin Blanc 750ml                      R58.00  [on this sheet]
+     Enter = 1 | number = pick | type a SAP code | S = skip this time | I = ignore always (not stock)
+  Your choice:      Not a listed number or a SAP code found in MM60 -- try again.
+  Your choice: 
+  New Micros item: 'Sauv Blanc House 750ml'  (4 sold @ R230.00, Ent - White Wine)
+     1) 90000024 House Sauvignon Blanc 750ml                    R67.98  [on this sheet]
+     2) 90000001 House Vodka 750ml                             R168.30  [on this sheet]
+     3) 90000020 House Merlot 750ml                             R63.24  [on this sheet]
+     4) 90000023 Estate Chenin Blanc 750ml                      R58.00  [on this sheet]
+     5) 90000019 Estate Cabernet Sauvignon 750ml                R95.00  [on this sheet]
+     Enter = skip | number = pick | type a SAP code | S = skip this time | I = ignore always (not stock)
+  Your choice: 
+  New Micros item: 'Hse Merlot GLS'  (70 sold @ R60.00, Ent - Red Wine)
+     1) 90000020 House Merlot 750ml                             R63.24  [on this sheet]
+     Enter = skip | number = pick | type a SAP code | S = skip this time | I = ignore always (not stock)
+  Your choice: 
+=== Sheet '10.11.2026' ===
+Control total: Micros beverage sales R82,329.00 | written to sheet R79,745.00 | difference R2,584.00  [CHECK -- see 'Not written' below]
+
+Written to Charged on Doc (37 rows):
+   Row 8    Cola 300ml                                     64
+   Row 9    Cola Zero 300ml                                89
+   Row 10   Lemon Soda 300ml                              115
+   Row 11   Tonic Water 200ml                              84   <- 'Tonic 200ml'
+   Row 12   Ginger Ale 200ml                               86
+   Row 13   Soda Water 200ml                               80
+   Row 14   Orange Juice 1lt                             5.25   <- 'Orange Juice GLS'
+   Row 15   Cranberry Juice 1lt                          9.25   <- 'Cranberry Juice GLS'
+   Row 19   Still Water 500ml                              87   <- 'Water Still 500ml'
+   Row 20   Sparkling Water 500ml                          72
+   Row 21   Still Water 750ml                              36
+   Row 22   Sparkling Water 750ml                         107
+   Row 26   House Lager 340ml                              51
+   Row 28   Light Lager 330ml                              46
+   Row 29   Dry Cider 330ml                                98
+   Row 30   Apple Cooler 275ml                             50
+   Row 31   Craft Pale Ale 440ml                           36
+   Row 35   Blended Scotch Whisky 750ml                    56 serves   <- 'Scotch Blended'
+   Row 36   Single Malt 12yr 750ml                         34 serves   <- 'Single Malt 12yr'
+   Row 37   Irish Whiskey 750ml                            70 serves   <- 'Irish Whiskey'
+   Row 38   Bourbon Whiskey 750ml                          19 serves   <- 'Bourbon Whiskey'
+   Row 42   Estate Chenin Blanc 750ml                    17.5   <- 'Chenin Estate GLS'
+   Row 43   House Sauvignon Blanc 750ml                     4   <- 'Sauv Blanc House 750ml'
+   Row 44   Reserve Chardonnay 750ml                       17
+   Row 45   Brut Cap Classique 750ml                       14
+   Row 49   Estate Cabernet Sauvignon 750ml                21   <- 'Cab Sauv Estate 750ml'
+   Row 50   House Merlot 750ml                           17.5   <- 'Hse Merlot GLS'
+   Row 51   Classic Pinotage 750ml                          4
+   Row 52   Reserve Shiraz 750ml                            0
+   Row 56   Cape Brandy 750ml                              49 serves   <- 'Cape Brandy'
+   Row 57   Aged Brandy 10yr 750ml                         80 serves   <- 'Aged Brandy 10yr'
+   Row 61   White Rum 750ml                                56 serves   <- 'White Rum'
+   Row 62   Spiced Rum 750ml                               54 serves   <- 'Spiced Rum'
+   Row 66   House Vodka 750ml                              37 serves   <- 'House Vodka'
+   Row 67   London Dry Gin 750ml                           40 serves   <- 'London Dry Gin'
+   Row 68   Coffee Liqueur 750ml                           28 serves   <- 'Coffee Liqueur'
+   Row 69   Silver Tequila 750ml                           24 serves   <- 'Silver Tequila'
+
+Confirmed by you on screen and saved to the item map (5):
+   'Tonic 200ml' -> SAP 90000039 Tonic Water 200ml
+   'Water Still 500ml' -> SAP 90000043 Still Water 500ml
+   'Chenin Estate GLS' -> SAP 90000023 Estate Chenin Blanc 750ml
+   'Sauv Blanc House 750ml' -> SAP 90000024 House Sauvignon Blanc 750ml
+   'Hse Merlot GLS' -> SAP 90000020 House Merlot 750ml
+
+Same name, size label differs (auto, 11):
+   'Single Malt 12yr' -> Single Malt 12yr 750ml
+   'Irish Whiskey' -> Irish Whiskey 750ml
+   'Bourbon Whiskey' -> Bourbon Whiskey 750ml
+   'Cape Brandy' -> Cape Brandy 750ml
+   'Aged Brandy 10yr' -> Aged Brandy 10yr 750ml
+   'White Rum' -> White Rum 750ml
+   'Spiced Rum' -> Spiced Rum 750ml
+   'House Vodka' -> House Vodka 750ml
+   'London Dry Gin' -> London Dry Gin 750ml
+   'Coffee Liqueur' -> Coffee Liqueur 750ml
+   'Silver Tequila' -> Silver Tequila 750ml
+
+Matched through the item map: 4 Micros lines.
+
+Serve conversions (4):
+   Row 14 'Orange Juice GLS': 21 serves = 5.25 bottles
+   Row 15 'Cranberry Juice GLS': 37 serves = 9.25 bottles
+   Row 42 'Chenin Estate GLS': 70 serves = 17.5 bottles
+   Row 50 'Hse Merlot GLS': 70 serves = 17.5 bottles
+
+Added as new rows (2) -- no Open/Add/Close counts on these yet, so until they are filled in the Variance shows the full qty sold:
+   Row 31 [Ent - Beer]: SAP 90000032 Craft Pale Ale 440ml
+   Row 69 [Ent - White Spirits]: SAP 90000005 Silver Tequila 750ml  <- 'Silver Tequila'
+
+Not written -- sold on Micros but not on the sheet (1, R2,584.00):
+   'Lager Premium 330ml'  68 sold, R2,584.00  -- no SAP match (closest: 90000031 Premium Lager 330ml)
+
+Ignored (marked 'not a stock item' in the item map, 1): 'Corkage'
+
+Excluded (Major Group = Food, 3): 'Canape Platter', 'Gala Dinner Plated', 'Dessert Station'
+
+Check with the bar -- similar quantities on both lists usually mean an item was rung up under another item's POS button:
+   Row 27 Premium Lager 330ml: 71 used, 0 on Micros
+   Row 52 Reserve Shiraz 750ml: 1 used, 0 on Micros
+   Row 31 Craft Pale Ale 440ml: 36 sold, no Open/Add/Close
+   Row 69 Silver Tequila 750ml: 24 serves sold, no Open/Add/Close
+
+Hid and cleared 18 empty template rows.
+
+Saved 5 confirmed match(es) to the item map (dated backup of the old map taken first).
+
+Saved: <root>\inbox\Cellar_Consumption_10_November_2026_UPDATED.xlsx
+Log:   <root>\inbox\Cellar_Consumption_10_November_2026_UPDATE_LOG.txt

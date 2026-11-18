@@ -1,0 +1,27 @@
+
+============================================================
+  MM60 Cost Comparator -- File Input
+============================================================
+  NOTE: Filenames are CASE-SENSITIVE on Mac/Linux
+        (Windows is case-insensitive)
+
+Enter FIRST MM60 file (e.g., 'MM60_January.xlsx'): Enter SECOND MM60 file (e.g., 'MM60_June.xlsx'): Enter label for first file (e.g., 'January 2026'): Enter label for second file (e.g., 'June 2026'): 
+=======================================================
+  DEMO HOTEL — MM60 COST COMPARATIVE TOOL
+=======================================================
+  Loading September 2026 from: MM60_D100_Sep_2026.xlsx
+  September 2026: 214 items loaded
+  Loading October 2026 from: MM60_D100_Oct_2026.xlsx
+  October 2026: 215 items loaded
+
+  Building data sheets...
+  Building summary...
+  Adding category hyperlinks...
+  53 hyperlinks added
+  Summary complete — 268 item rows written
+
+  ✔  Output saved: MM60_Comparative_September_2026_vs_October_2026.xlsx
+  Location: <root>\tools\cost_comparator\MM60_Comparative_September_2026_vs_October_2026.xlsx
+=======================================================
+
+  Press Enter to close...

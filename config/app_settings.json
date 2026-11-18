@@ -1,0 +1,14 @@
+{
+  "_about": "Demo branding. Change property_name to rename the property everywhere: the app's sidebar and the report titles the tools write. (c) 2026 Alain Yon",
+  "property_name": "Demo Hotel",
+  "currency": "ZAR",
+  "user_display_name": "Demo User",
+  "units": {
+    "main": "Main Hotel",
+    "tower": "Tower Wing"
+  },
+  "plants": {
+    "D100": "Hotel",
+    "D200": "Conference Centre"
+  }
+}

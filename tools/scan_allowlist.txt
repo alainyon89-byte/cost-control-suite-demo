@@ -1,0 +1,10 @@
+# Reviewed false positives for tools/scan_sensitive.py.
+# path | matched text | text on the line (blank = any line in that file) | reason
+app/main.py | secret | import secrets | standard-library module that makes the per-launch session key
+app/main.py | token | | per-launch session key for the app's local page (random, made at start-up, never stored)
+app/web/app.js | token | | the same per-launch session key, read from the page address
+source_tools/coffee_loss/coffee_loss_tracker_v2.py | 0123456789 | lstrip('0123456789') | the digits 0-9 used to test a material number, not a phone number
+source_tools/oe_monthly/oe_tracker.py | password | TF_PASSWORD | sheet-protection value 'DEMO' on the transfer form (stops accidental edits, not a secret)
+source_tools/recount_selection/select_recount_items.py | token | A short token matches | a word in name matching
+tests/compare_xlsx.py | password | | openpyxl's sheet-protection field names, compared between workbooks
+tests/run_regression.py | token | | placeholder text that replaces local paths in saved logs

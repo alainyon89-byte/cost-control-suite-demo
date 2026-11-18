@@ -1,0 +1,35 @@
+
+Enter month label (e.g., 'June 2026'): 
+  Loading SAP file: MI20_kitchen.xlsx
+  Columns detected: 12
+  Format: Mi20 kitchen export (12 columns)
+  Loading canteen item master: Canteen_Item_Master.xlsx
+  Master items: 29
+  Rows after canteen filter: 29
+
+  Split % applied to 4 item(s):
+    Free Range Eggs 30s: 30% -> R210.60 (was R702.00)
+    White Bread Loaf 700g: 50% -> R1,130.50 (was R2,261.00)
+    Full Cream Milk 1lt: 30% -> R239.26 (was R797.55)
+    Instant Coffee 750g: 0% -> R0.00 (was R14,025.00)
+
+  Excluded 1 item(s) at 0% canteen:
+    Instant Coffee 750g
+
+  ─────────────────────────────────────────────
+  Unique canteen items:  28
+  Grand total:           R   287,833.56
+  Budget:                R   250,000.00
+  Variance (Under)/Over: R   -37,833.56  OVER BUDGET
+  ─────────────────────────────────────────────
+
+  Month detected: Oct -> column 11
+  Preserving Trend history from existing workbook...
+  Months with existing data: 3
+
+  Saved: Canteen_MonthEnd_Tool.xlsx
+  Location: <root>\tools\canteen_loss\Canteen_MonthEnd_Tool.xlsx
+
+  REMINDER: Open the Consolidated tab and update the covers figures
+  (Lunch/Dinner covers, Breakfast covers) in the KPI block.
+

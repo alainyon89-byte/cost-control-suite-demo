@@ -1,0 +1,10 @@
+{
+  "_comment": "Confirmed new dishes: a row is added under the category on the next run",
+  "pending": [
+    {
+      "pos_name": "Gourmet Toastie",
+      "mix_name": "Gourmet Toastie",
+      "category": "Light Meals"
+    }
+  ]
+}

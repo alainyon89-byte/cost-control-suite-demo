@@ -1,0 +1,17 @@
+======================================================================
+  OE APPROVALS v3.1
+======================================================================
+
+  Lines read      44
+  Approved          31   R     81,136.00
+  Not approved      10
+  Pending            3
+
+  Follow up (3):
+    L096 90002013 Steak Knife: Approve column says "Maybe" - not Y or N, left as pending
+    L097 90002018 Water Tumbler 250ml: Approved 190, more than the 184 suggested
+    L097 90002021 Beer Glass 400ml: Approved with qty 0 - treated as not approved
+
+  ! Some lines have no decision. Ask the F&B Manager, then run this again.
+
+  Saved: OE_Approved_Orders_Oct_2026.xlsx
